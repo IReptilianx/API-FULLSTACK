@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { createProduct, getProducts, getProductById, updateProductById, deleteProduct } from './handlers/product';
 import { createClient, getClients, getClientById, updateClient, deleteClient, saveClient } from './handlers/client';
+import { registerUser, loginUser, getUsers, getAllUsersWithPasswords } from './handlers/auth';
 import { body, param } from 'express-validator'; // Importa 'param' para validar parámetros
 import { handleInputErrors } from './middleware';
 
@@ -73,8 +74,30 @@ router.post(
   body('placas').notEmpty().withMessage("Las placas son obligatorias"),
   body('auto').notEmpty().withMessage("El auto es obligatorio"),
   body('color').notEmpty().withMessage("El color es obligatorio"),
-  handleInputErrors,
-  saveClient
+  handleInputErrors,  saveClient
 );
+
+// Rutas de autenticación
+router.post(
+  '/auth/register',
+  body('nombreCompleto').notEmpty().withMessage("El nombre completo es obligatorio"),
+  body('apellido').notEmpty().withMessage("El apellido es obligatorio"),
+  body('email').isEmail().withMessage("El email debe ser válido"),
+  body('password').isLength({min: 6}).withMessage("La contraseña debe tener al menos 6 caracteres"),
+  body('telefono').notEmpty().withMessage("El teléfono es obligatorio"),
+  handleInputErrors,
+  registerUser
+);
+
+router.post(
+  '/auth/login',
+  body('email').isEmail().withMessage("El email debe ser válido"),
+  body('password').notEmpty().withMessage("La contraseña es obligatoria"),
+  handleInputErrors,
+  loginUser
+);
+
+router.get('/auth/users', getUsers); // Para obtener lista de usuarios (admin)
+router.get('/auth/all-users', getAllUsersWithPasswords); // Para consultar todos los usuarios con contraseñas
 
 export default router;

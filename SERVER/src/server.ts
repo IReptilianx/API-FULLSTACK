@@ -2,11 +2,15 @@ import express from 'express';
 import router from './router';
 import db from './config/db';
 import cors from 'cors';
+// Importar modelos para sincronización
+import './models/Client.model';
+import './models/Usuario.model';
+import './models/Product.model';
 
 async function connectDB() {
   try {
     await db.authenticate();
-    db.sync();
+    await db.sync();
     console.log('Conexión exitosa a la base de datos');
   } catch (error) {
     console.log('Error al conectarse con la BS:');
@@ -23,10 +27,5 @@ server.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 server.use('/api', router);
-
-const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
 
 export default server;

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ActivityActions } from "../reducers/activity-reducers";
 
 interface Activity {
   id: string;
@@ -12,10 +11,9 @@ interface Activity {
 
 interface ActivityListProps {
   activities: Activity[];
-  dispatch: React.Dispatch<ActivityActions>; // Updated to use ActivityActions directly
 }
 
-function ActivityList({ activities, dispatch }: ActivityListProps) {
+function ActivityList({ activities }: ActivityListProps) {
   const [currentTime, setCurrentTime] = useState(Date.now());
 
   useEffect(() => {
@@ -42,39 +40,40 @@ function ActivityList({ activities, dispatch }: ActivityListProps) {
   };
 
   return (
-    <div className="bg-white p-8 rounded shadow">
-      <h2 className="text-xl font-bold mb-5">Historial de Actividades</h2>
+    <div className="activity-list">
+      <h2>Historial de Actividades</h2>
       {activities.length === 0 ? (
-        <p className="text-gray-500">No hay actividades registradas.</p>
+        <p>No hay actividades registradas.</p>
       ) : (
-        <ul className="space-y-3">
+        <ul>
           {activities.map((activity) => (
-            <li
-              key={activity.id}
-              className="border border-gray-300 p-4 rounded flex justify-between items-center"
-            >
+            <li key={activity.id}>
               <div>
-                <p className="font-bold">Servicio: {activity.service}</p>
-                <p>Cliente: {activity.client}</p>
+                <p>
+                  <b>Servicio:</b> {activity.service}
+                </p>
+                <p>
+                  <b>Cliente:</b> {activity.client}
+                </p>
                 {activity.service === "Estacionamiento" && (
                   <>
-                    <p>Placas: {activity.plates}</p>
-                    <p>Tiempo: {formatTime(activity.startTime)}</p>
-                    <p>Costo: ${calculateCost(activity.startTime)}</p>
+                    <p>
+                      <b>Placas:</b> {activity.plates}
+                    </p>
+                    <p>
+                      <b>Tiempo:</b> {formatTime(activity.startTime)}
+                    </p>
+                    <p>
+                      <b>Costo:</b> ${calculateCost(activity.startTime)}
+                    </p>
                   </>
                 )}
                 {activity.service !== "Estacionamiento" && (
-                  <p>Precio: ${activity.price}</p>
+                  <p>
+                    <b>Precio:</b> ${activity.price}
+                  </p>
                 )}
               </div>
-              <button
-                onClick={() =>
-                  dispatch({ type: "REMOVE_ACTIVITY", payload: activity.id }) // Updated to use UUID
-                }
-                className="text-red-600 font-bold"
-              >
-                Eliminar
-              </button>
             </li>
           ))}
         </ul>

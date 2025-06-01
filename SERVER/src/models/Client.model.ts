@@ -1,42 +1,55 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../config/db";
 
-@Table({
-  tableName: "clients",
-  timestamps: true,
-  underscored: true,
-})
 class Client extends Model {
-  @Column({
-    type: DataType.STRING(50),
-  })
-  nombre: string;
-
-  @Column({
-    type: DataType.STRING(50),
-    allowNull: true, // Permitir valores nulos
-  })
-  apellido: string;
-
-  @Column({
-    type: DataType.STRING(50),
-    allowNull: true, // Permitir valores nulos
-  })
-  telefono: string;
-
-  @Column({
-    type: DataType.STRING(50),
-  })
-  placas: string;
-
-  @Column({
-    type: DataType.STRING(50),
-  })
-  auto: string;
-
-  @Column({
-    type: DataType.STRING(50),
-  })
-  color: string;
+  public id!: number;
+  public nombre!: string;
+  public apellido!: string;
+  public telefono!: string;
+  public placas!: string;
+  public auto!: string;
+  public color!: string;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 }
+
+Client.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    nombre: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    apellido: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+    },
+    telefono: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+    },
+    placas: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    auto: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    color: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: "Client",
+    tableName: "clients",
+  }
+);
 
 export default Client;

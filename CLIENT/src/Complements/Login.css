@@ -1,0 +1,113 @@
+body {
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Added Roboto as a more modern primary font */
+  background: linear-gradient(135deg, #76e0f2, #2980B9); /* Slightly adjusted gradient for a softer look */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden; /* Prevent scrollbars if content slightly overflows */
+}
+
+.login-title {
+  font-size: 2.8rem; /* Slightly larger title */
+  font-weight: 300;
+  color: #2c3e50; /* Darker, more sophisticated title color */
+  text-align: center;
+  margin-bottom: 2rem; /* Increased margin for better spacing */
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.95); /* Slightly transparent white for a frosted glass effect */
+  padding: 3rem; /* More generous padding */
+  border-radius: 20px; /* Even more rounded corners */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Deeper, more pronounced shadow */
+  width: 100%;
+  max-width: 450px; /* Slightly wider card for better proportions */
+  text-align: center;
+  backdrop-filter: blur(10px); /* Frosted glass effect for supported browsers */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border to enhance the glass effect */
+}
+
+.login-input {
+  width: 100%;
+  padding: 1rem; /* Increased padding for a more comfortable feel */
+  margin-bottom: 1.5rem; /* Increased margin */
+  border: 1px solid #ced4da; /* Standard, clean border color */
+  border-radius: 10px; /* More rounded inputs */
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent inputs */
+}
+
+.login-input::placeholder { /* Style placeholder text */
+  color: #6c757d;
+  opacity: 0.8;
+}
+
+.login-input:focus {
+  border-color: #3498DB; /* Brighter accent color on focus, matching button */
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3); /* Softer, more modern focus glow */
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.95); /* Less transparent on focus */
+}
+
+.login-button {
+  width: 100%;
+  padding: 1rem; /* Consistent padding with inputs */
+  background-color: #3498DB;
+  color: white;
+  border: none;
+  border-radius: 10px; /* Consistent rounding with inputs */
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+  font-weight: 500;
+  letter-spacing: 0.5px; /* Added letter spacing for a more refined look */
+}
+
+.login-button:hover {
+  background-color: #2980B9;
+  transform: translateY(-2px); /* Subtle lift effect on hover */
+}
+
+.login-button:active { /* Added active state for button press feedback */
+  transform: translateY(0px);
+  background-color: #2575a7;
+}
+
+.login-footer {
+  margin-top: 2rem; /* Increased margin */
+  font-size: 0.95rem; /* Slightly larger footer text */
+  color: #495057; /* Softer, more readable footer text color */
+}
+
+.login-footer a {
+  color: #3498DB;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease; /* Smooth color transition for links */
+}
+
+.login-footer a:hover {
+  color: #2980B9; /* Darken link on hover */
+  text-decoration: underline;
+}
+
+/* Optional: Add a subtle animation to the card on load */
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-card {
+  /* ... other styles ... */
+  animation: fadeInCard 0.6s ease-out forwards;
+}

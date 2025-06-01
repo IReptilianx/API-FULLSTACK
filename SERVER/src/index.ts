@@ -1,7 +1,8 @@
 import server from "./server";
 
-server.listen(3000, () => {
+const PORT = process.env.PORT || 4002;
+server.listen(PORT, () => {
   console.log('Debugger attached.');
-  console.log('REST API en el puerto: 3000');
-  console.log('http://localhost:3000');
+  console.log(`REST API en el puerto: ${PORT}`);
+  console.log(`http://localhost:${PORT}`);
 });

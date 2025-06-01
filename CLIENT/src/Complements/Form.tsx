@@ -7,7 +7,7 @@ type FormProps = {
   state: ActivityState; // Ajusta el tipo del estado
 };
 
-const API_BASE_URL = "https://api-fullstack-ih76.onrender.com"; // Updated with the correct Render domain
+const API_BASE_URL = "http://localhost:4002";
 
 function Form({ dispatch }: FormProps) {
   const [nombre, setNombre] = useState("");
@@ -17,12 +17,14 @@ function Form({ dispatch }: FormProps) {
   const [apellido, setApellido] = useState("");
   const [telefono, setTelefono] = useState("");
   const [message, setMessage] = useState("");
+  const [alertType, setAlertType] = useState<"success" | "error" | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!nombre || !placas || !auto || !color || !apellido || !telefono) {
       setMessage("Todos los campos son obligatorios");
+      setAlertType("error");
       return;
     }
 
@@ -64,12 +66,13 @@ function Form({ dispatch }: FormProps) {
         const errorResponse = await response.json();
         const errorMessages = errorResponse.errors.map((err: { msg: string }) => err.msg).join(", ");
         setMessage(`Error: ${errorMessages}`);
+        setAlertType("error");
         return;
       }
 
       const data = await response.json();
-      console.log("Cliente guardado exitosamente:", data);
       setMessage("Datos guardados correctamente");
+      setAlertType("success");
       dispatch({ type: "ADD_ACTIVITY", payload: newActivity });
       setNombre("");
       setPlacas("");
@@ -78,108 +81,78 @@ function Form({ dispatch }: FormProps) {
       setApellido("");
       setTelefono("");
     } catch (error) {
-      console.error("Error al guardar el cliente:", error);
       setMessage("Error al guardar los datos");
+      setAlertType("error");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="form-container">
+      <h2>Registro de Cliente</h2>
       {message && (
-        <div className={`p-4 rounded ${message.includes("Error") ? "bg-red-500" : "bg-green-500"} text-white`}>
-          {message}
-        </div>
+        <div className={`form-message ${alertType === "success" ? "success" : "error"}`}>{message}</div>
       )}
-      <div>
-        <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
-          Nombre del Cliente
-        </label>
+      <div className="form-group">
+        <label htmlFor="nombre">Nombre del Cliente</label>
         <input
           type="text"
           id="nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           required
         />
       </div>
-
-      <div>
-        <label htmlFor="apellido" className="block text-sm font-medium text-gray-700">
-          Apellido del Cliente
-        </label>
+      <div className="form-group">
+        <label htmlFor="apellido">Apellido del Cliente</label>
         <input
           type="text"
           id="apellido"
           value={apellido}
           onChange={(e) => setApellido(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           required
         />
       </div>
-
-      <div>
-        <label htmlFor="telefono" className="block text-sm font-medium text-gray-700">
-          Teléfono del Cliente
-        </label>
+      <div className="form-group">
+        <label htmlFor="telefono">Teléfono del Cliente</label>
         <input
           type="text"
           id="telefono"
           value={telefono}
           onChange={(e) => setTelefono(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           required
         />
       </div>
-
-      <div>
-        <label htmlFor="placas" className="block text-sm font-medium text-gray-700">
-          Placas del Vehículo
-        </label>
+      <div className="form-group">
+        <label htmlFor="placas">Placas del Vehículo</label>
         <input
           type="text"
           id="placas"
           value={placas}
           onChange={(e) => setPlacas(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           required
         />
       </div>
-
-      <div>
-        <label htmlFor="auto" className="block text-sm font-medium text-gray-700">
-          Tipo de Vehículo (Carro o Camioneta)
-        </label>
+      <div className="form-group">
+        <label htmlFor="auto">Tipo de Vehículo (Carro o Camioneta)</label>
         <input
           type="text"
           id="auto"
           value={auto}
           onChange={(e) => setAuto(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           required
         />
       </div>
-
-      <div>
-        <label htmlFor="color" className="block text-sm font-medium text-gray-700">
-          Color del Vehículo
-        </label>
+      <div className="form-group">
+        <label htmlFor="color">Color del Vehículo</label>
         <input
           type="text"
           id="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           required
         />
       </div>
-
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-      >
-        Guardar
-      </button>
+      <button type="submit" className="form-btn">Guardar</button>
     </form>
   );
 }

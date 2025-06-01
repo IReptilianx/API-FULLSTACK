@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize-typescript";
+import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -7,7 +7,6 @@ if (!process.env.DB_URL) {
 }
 
 const db = new Sequelize(process.env.DB_URL!, {
-  models: [__dirname + "/../models/**/*.ts"],
   dialectOptions: {
     ssl: {
       require: true,

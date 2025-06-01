@@ -1,34 +1,59 @@
-@import "tailwindcss";
-@import "tailwindcss/utilities";
-
-/* Fondo animado */
-@keyframes road {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -200px 0;
-  }
+/* Updated to a sky blue theme */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #B0E0E6, #385cdf); /* Sky blue gradient */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.bg-road {
-  background-image: linear-gradient(to bottom, #444 20%, transparent 20%, transparent 40%, #444 40%, #444 60%, transparent 60%, transparent 80%, #444 80%);
-  background-size: 200px 200px;
+/* Removed the title and icon completely */
+body h1, body .icon {
+  display: none; /* Hide the title and icon */
 }
 
-.animate-road {
-  animation: road 5s linear infinite;
+/* Added a card style for the login form */
+.login-card {
+  background: white; /* White background for the card */
+  padding: 2rem;
+  border-radius: 16px; /* Rounded corners */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto; /* Center the card horizontally */
 }
 
-/* Fondo personalizado */
-.bg-parking {
-  background-image: url('./assets/est-fondo.jpg'); /* Ruta relativa desde index.css */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+
+.login-card input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #87CEEB; /* Sky blue border */
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
-/* Fondo principal con gradiente */
-.bg-gradient {
-  background: linear-gradient(to bottom, #4facfe, #00f2fe); /* Azul degradado */
+.login-card input:focus {
+  outline: none;
+  border-color: #4682B4; /* Darker blue on focus */
+  box-shadow: 0 0 5px rgba(70, 130, 180, 0.5);
+}
+
+.login-card button {
+  background: #87CEEB; /* Sky blue button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+.login-card button:hover {
+  background: #4682B4; /* Darker blue on hover */
 }
