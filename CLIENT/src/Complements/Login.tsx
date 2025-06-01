@@ -196,34 +196,37 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
 
   return (
     <div className="login-container">
-      <h1 className="login-title">Bienvenido de Nuevo</h1>
       <div className="login-card">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            className="login-input"
-            placeholder="Tu correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            className="login-input"
-            placeholder="Tu contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {error && <p className="login-error">{error}</p>}
-          <button type="submit" className="login-button">
-            Ingresar
-          </button>
+        <h1 className="login-title">Bienvenido</h1>
+        <p className="login-subtitle">Inicia sesión para continuar</p>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <input
+              type="email"
+              id="email"
+              className="form-input"
+              placeholder="Correo Electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              id="password"
+              className="form-input"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="login-button">Ingresar</button>
         </form>
         <p className="login-footer">
-          ¿Aún no tienes cuenta? <a href="/register">Regístrate aquí</a>
+          ¿No tienes cuenta? <a href="#" className="register-link">Regístrate aquí</a>
         </p>
       </div>
     </div>

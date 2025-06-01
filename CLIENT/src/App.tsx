@@ -17,10 +17,7 @@ function App() {
 
   return (
     <>
-      <header className="header">
-        <FontAwesomeIcon icon={faCar} />
-        Estacionamiento
-      </header>
+     
       <div className="main-content">
         {isAuthenticated ? (
           <>
