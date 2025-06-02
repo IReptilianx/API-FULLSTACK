@@ -79,7 +79,7 @@ function Form({ dispatch }: FormProps) {
       setColor("");
       setApellido("");
       setTelefono("");
-    } catch (error) {
+    } catch {
       setMessage("Error al guardar los datos");
       setAlertType("error");
     }
