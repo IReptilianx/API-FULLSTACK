@@ -12,7 +12,7 @@ services:
   server:
     build: ./SERVER
     ports:
-      - "4002:81" # Updated to match the required port
+      - "4002" # Updated to match the required port
     env_file: .env
     environment:
       NODE_ENV: development
