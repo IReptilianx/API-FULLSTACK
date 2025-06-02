@@ -1,59 +1,168 @@
-/* Updated to a sky blue theme */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #B0E0E6, #385cdf); /* Sky blue gradient */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
-/* Removed the title and icon completely */
-body h1, body .icon {
-  display: none; /* Hide the title and icon */
+.login-container {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
 }
 
-/* Added a card style for the login form */
 .login-card {
-  background: white; /* White background for the card */
-  padding: 2rem;
-  border-radius: 16px; /* Rounded corners */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  max-width: px;
-  width: 100%;
-  margin: 0 auto; /* Center the card horizontally */
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px 2ch;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-
-.login-card input {
-  width: 90%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #e3e3e3; /* Sky blue border */
-  border-radius: 8px;
-  font-size: 1rem;
+.login-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 0.2em;
+    color: #333;
 }
 
-.login-card input:focus {
-  outline: none;
-  border-color: #4682B4; /* Darker blue on focus */
-  box-shadow: 0 0 5px rgba(70, 130, 180, 0.5);
+.login-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1em;
+    font-weight: bold;
 }
 
-.login-card button {
-  background: #4e5ed2; /* Sky blue button */
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  width: 90%;
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
-.login-card button:hover {
-  background: #d3e0eb; /* Darker blue on hover */
+.form-row, .form-group {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.form-row {
+    margin-bottom: 0.5em;
+}
+
+.form-input, .login-form input, .login-form select, .login-form textarea {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1.5px solid #e0d1c3;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.8);
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus, .login-form input:focus, .login-form select:focus, .login-form textarea:focus {
+    border-color: #FF7F50;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+}
+
+.login-button, .action-button {
+    background: linear-gradient(135deg, #FF7F50, #e06d40);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.login-button:hover, .action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.13);
+}
+
+button[type="button"] {
+    background: none;
+    border: 2px solid #FF7F50;
+    color: #FF7F50;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 8px;
+}
+
+button[type="button"]:hover {
+    background: #FF7F50;
+    color: white;
+}
+
+.error-message {
+    color: #f44336;
+    background: #ffeaea;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 1em;
+    color: #666;
+}
+
+.register-link {
+    color: #FF7F50;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.register-link:hover {
+    color: #e06d40;
+}
+
+@media (max-width: 600px) {
+    .login-card {
+        padding: 20px 8px;
+    }
+    .form-row, .form-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .login-title {
+        font-size: 1.5rem;
+    }
+    .login-button, .action-button {
+        font-size: 1rem;
+    }
 }

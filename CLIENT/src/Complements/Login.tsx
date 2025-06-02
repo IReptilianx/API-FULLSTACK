@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import './Login.css';
+import '../index.css';
 
 const API_BASE_URL = "http://localhost:4002";
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [error, setError] = useState('');
   
   // Estados para el formulario de registro
   const [registerData, setRegisterData] = useState({
@@ -24,7 +24,6 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
@@ -74,13 +73,9 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
       } else {
         alert(data.message || 'Error al crear la cuenta');
       }
-    } catch (error) {
+    } catch {
       alert('Error de conexión. Intenta nuevamente.');
     }
-  };
-
-  const handleCreateAccount = () => {
-    setIsCreatingAccount(true);
   };
 
   const handleBackToLogin = () => {
@@ -92,6 +87,11 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleRegisterClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsCreatingAccount(true);
   };
 
   if (isCreatingAccount) {
@@ -226,7 +226,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
           <button type="submit" className="login-button">Ingresar</button>
         </form>
         <p className="login-footer">
-          ¿No tienes cuenta? <a href="#" className="register-link">Regístrate aquí</a>
+          ¿No tienes cuenta? <a href="#" className="register-link" onClick={handleRegisterClick}>Regístrate aquí</a>
         </p>
       </div>
     </div>
