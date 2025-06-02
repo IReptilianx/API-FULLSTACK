@@ -70,7 +70,6 @@ function Form({ dispatch }: FormProps) {
         return;
       }
 
-      const data = await response.json();
       setMessage("Datos guardados correctamente");
       setAlertType("success");
       dispatch({ type: "ADD_ACTIVITY", payload: newActivity });

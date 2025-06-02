@@ -1,6 +1,4 @@
 import { useReducer, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCar } from "@fortawesome/free-solid-svg-icons";
 import Login from "./Complements/Login";
 import Form from "./Complements/Form";
 import { activityReducer, initialState } from "./reducers/activity-reducers";
@@ -15,14 +13,20 @@ function App() {
     setIsAuthenticated(true);
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
+
   return (
     <>
-     
       <div className="main-content">
         {isAuthenticated ? (
           <>
             <Form dispatch={dispatch} state={state} />
             <ActivityList activities={state.activities} />
+            <button className="logout-button" onClick={handleLogout}>
+              Salir
+            </button>
           </>
         ) : (
           <Login onLogin={handleLogin} />
