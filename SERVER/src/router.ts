@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { createProduct, getProducts, getProductById, updateProductById, deleteProduct } from './handlers/product';
 import { createClient, getClients, getClientById, updateClient, deleteClient, saveClient } from './handlers/client';
-import { registerUser, loginUser, getUsers, getAllUsersWithPasswords } from './handlers/auth';
+import { registerUser, loginUser, getUsers, getAllUsersWithPasswords } from './handlers/user';
 import { body, param } from 'express-validator'; // Importa 'param' para validar parámetros
 import { handleInputErrors } from './middleware';
 
