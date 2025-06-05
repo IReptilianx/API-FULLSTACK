@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../index.css';
 
-const API_BASE_URL = "http://localhost:4002";
+const API_BASE_URL = "http://localhost:3000";
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
   const [email, setEmail] = useState('');
@@ -63,17 +63,17 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
         body: JSON.stringify(registerData),
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        alert('Cuenta creada exitosamente');
-        setIsCreatingAccount(false);
-        // Autenticar al usuario después de crear la cuenta
-        onLogin();
-      } else {
-        alert(data.message || 'Error al crear la cuenta');
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.message || 'Error al crear la cuenta');
+        return;
       }
-    } catch {
+    await response.json();
+    alert('Cuenta creada exitosamente');
+      setIsCreatingAccount(false);
+      onLogin();
+    } catch (error) {
+      console.error('Error de conexión:', error);
       alert('Error de conexión. Intenta nuevamente.');
     }
   };
