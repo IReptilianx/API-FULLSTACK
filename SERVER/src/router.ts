@@ -79,7 +79,7 @@ router.post(
 
 // Rutas de autenticación
 router.post(
-  '/auth/register',
+  '/user/register',
   body('nombreCompleto').notEmpty().withMessage("El nombre completo es obligatorio"),
   body('apellido').notEmpty().withMessage("El apellido es obligatorio"),
   body('email').isEmail().withMessage("El email debe ser válido"),
@@ -90,7 +90,7 @@ router.post(
 );
 
 router.post(
-  '/auth/login',
+  '/user/login',
   body('email').isEmail().withMessage("El email debe ser válido"),
   body('password').notEmpty().withMessage("La contraseña es obligatoria"),
   handleInputErrors,
