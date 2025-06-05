@@ -19,7 +19,7 @@ const db = new Sequelize(process.env.DB_URL!, {
   pool: {
     max: 3, // Render recomienda un pool pequeño
     min: 0,
-    acquire: 30000,
+    acquire: 9090,
     idle: 10000,
   },
   logging: (msg) => console.log("[Sequelize]", msg),

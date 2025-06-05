@@ -7,7 +7,7 @@ type FormProps = {
   state: ActivityState; // Ajusta el tipo del estado
 };
 
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "http://localhost:9090";
 
 function Form({ dispatch }: FormProps) {
   const [nombre, setNombre] = useState("");
