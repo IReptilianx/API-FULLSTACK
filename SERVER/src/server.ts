@@ -13,7 +13,7 @@ async function connectDB() {
     await db.sync();
     console.log('Conexión exitosa a la base de datos');
   } catch (error) {
-    console.log('Error al conectarse con la BS:');
+    console.log('Error al conectarse con la BD:');
     console.log(error);
   }
 }
