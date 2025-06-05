@@ -22,7 +22,7 @@ connectDB();
 const server = express();
 server.use(express.json());
 server.use(cors({
-  origin: '*', // Cambia '*' por el dominio específico si es necesario
+  origin: process.env.NODE_ENV === 'production' ? 'https://api-fullstack-1-rlv5.onrender.com' : '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
