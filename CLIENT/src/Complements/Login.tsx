@@ -26,7 +26,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      const response = await fetch(`${API_BASE_URL}/api/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+      const response = await fetch(`${API_BASE_URL}/api/user/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

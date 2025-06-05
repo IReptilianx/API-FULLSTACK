@@ -97,7 +97,8 @@ router.post(
   loginUser
 );
 
-router.get('/auth/users', getUsers); // Para obtener lista de usuarios (admin)
-router.get('/auth/all-users', getAllUsersWithPasswords); // Para consultar todos los usuarios con contraseñas
+router.get('/user/users', getUsers); // Para obtener lista de usuarios (admin)
+router.get('/user/all-users', getAllUsersWithPasswords); // Para consultar todos los usuarios con contraseñas
 
 export default router;
+
