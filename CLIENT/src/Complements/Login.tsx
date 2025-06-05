@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../index.css';
 
-const API_BASE_URL = process.env.NODE_ENV === "production" ? "https://api-fullstack-1-rlv5.onrender.com" : process.env.DOCKER_ENV === "true" ? "http://server:3000" : "http://localhost:3000";
+
+const API_BASE_URL = "http://localhost:9090";
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
   const [email, setEmail] = useState('');
@@ -54,6 +55,8 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
       return;
     }
 
+    console.log('Datos enviados:', registerData); // Agregado para depuración
+
     try {
       const response = await fetch(`${API_BASE_URL}/api/user/register`, {
         method: 'POST',
@@ -64,12 +67,18 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.message || 'Error al crear la cuenta');
+        let errorMessage = 'Error al crear la cuenta';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch (jsonError) {
+          console.error('Error al analizar la respuesta JSON:', jsonError);
+        }
+        alert(errorMessage);
         return;
       }
-    await response.json();
-    alert('Cuenta creada exitosamente');
+
+      alert('Cuenta creada exitosamente');
       setIsCreatingAccount(false);
       onLogin();
     } catch (error) {
