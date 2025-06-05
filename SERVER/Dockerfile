@@ -7,6 +7,7 @@ WORKDIR /app
 # Copia los archivos del proyecto
 COPY package*.json tsconfig*.json ./
 COPY src ./src
+COPY .env /app/.env
 
 # Instala dependencias
 RUN npm install
