@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../index.css';
 
-const API_BASE_URL = window.location.protocol === "https:" ? "https://api-fullstack-1-rlv5.onrender.com" : "http://localhost:3000";
+const API_BASE_URL = process.env.NODE_ENV === "production" ? "https://api-fullstack-1-rlv5.onrender.com" : process.env.DOCKER_ENV === "true" ? "http://server:3000" : "http://localhost:3000";
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
   const [email, setEmail] = useState('');
