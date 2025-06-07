@@ -13,7 +13,7 @@ COPY .env /app/.env
 RUN npm install
 
 # Expone el puerto donde corre tu API (asegúrate que coincide con tu app, p.ej., 3001)
-EXPOSE 9090
+EXPOSE 8080
 
 # Comando para desarrollo (puedes cambiar por otro si usas build separado)
 CMD ["npx", "nodemon", "--exec", "ts-node", "src/index.ts"]
