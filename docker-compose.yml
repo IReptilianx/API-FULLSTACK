@@ -2,7 +2,7 @@ services:
   client:
     build: ./CLIENT
     ports:
-      - "3001:80" # Changed to avoid conflict
+      - "5173:80" # Changed to avoid conflict
     restart: unless-stopped
     depends_on:
       - server
