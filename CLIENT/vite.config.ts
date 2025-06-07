@@ -7,7 +7,7 @@ export default defineConfig({
     react()
   ],
   server: {
-    port: 8080
+    port: 5173
   }
 })
 
