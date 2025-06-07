@@ -7,7 +7,9 @@ type FormProps = {
   state: ActivityState; // Ajusta el tipo del estado
 };
 
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = window.location.hostname === 'localhost' 
+  ? "http://localhost:8080" 
+  : "https://api-fullstack-ryb6.onrender.com";
 
 function Form({ dispatch }: FormProps) {
   const [nombre, setNombre] = useState("");
