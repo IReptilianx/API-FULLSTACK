@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../index.css';
 
 
-const API_BASE_URL = "http://localhost:9090";
+const API_BASE_URL = "http://localhost:8080";
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
   const [email, setEmail] = useState('');
