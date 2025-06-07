@@ -10,7 +10,7 @@ RUN npm install
 COPY SERVER/ .
 
 # Expose the port for the server
-EXPOSE 9090
+EXPOSE 8080
 
 # Command to run the server
 CMD ["node", "dist/index.js"]
