@@ -20,12 +20,42 @@ async function connectDB() {
 
 connectDB();
 const server = express();
+
+// CORS configuration for production
+const corsOptions = {
+  origin: [
+    'https://api-fullstack-1-maiu.onrender.com',
+    'http://localhost:5173',
+    'http://localhost:3000',
+    /\.onrender\.com$/,
+    '*' // Fallback for development
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  credentials: true,
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+};
+
+server.use(cors(corsOptions));
 server.use(express.json());
-server.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+
+// Additional CORS headers middleware for extra compatibility
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+// Handle preflight requests
+server.options('*', cors(corsOptions));
+
 server.use('/api', router);
 
 export default server;

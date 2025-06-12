@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ParkingSpot } from "../models/ParkingSpot.model";
+import ParkingSpot from "../models/ParkingSpot.model";
 
 export const updateParkingSpot = async (req: Request, res: Response) => {
   const { spotId, occupied } = req.body;

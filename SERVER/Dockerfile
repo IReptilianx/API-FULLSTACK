@@ -12,8 +12,11 @@ COPY .env /app/.env
 # Instala dependencias
 RUN npm install
 
+# Build para producción
+RUN npm run build
+
 # Expone el puerto donde corre tu API (asegúrate que coincide con tu app, p.ej., 3001)
 EXPOSE 8080
 
-# Comando para desarrollo (puedes cambiar por otro si usas build separado)
-CMD ["npx", "nodemon", "--exec", "ts-node", "src/index.ts"]
+# Comando para producción
+CMD ["npm", "start"]
