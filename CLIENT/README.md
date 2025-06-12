@@ -1,6 +1,57 @@
-# React + TypeScript + Vite
+# AparClic! - Sistema de Estacionamiento Inteligente
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**AparClic!** es un sistema completo de gestión de estacionamientos desarrollado con tecnologías modernas para proporcionar una experiencia de usuario excepcional y control administrativo avanzado.
+
+## 🚀 Características Principales
+
+- **Gestión de Clientes**: Sistema avanzado de perfiles y seguimiento de clientes
+- **Tickets Digitales**: Generación automática de tickets con códigos únicos
+- **Monitoreo en Tiempo Real**: Dashboard inteligente con estadísticas y análisis
+- **Interfaz Moderna**: Diseño responsivo con efectos glassmorphism
+- **Control de Ocupación**: Visualización en tiempo real de lugares disponibles
+- **Exportación PDF**: Generación de tickets y reportes en formato PDF
+
+## 🛠️ Stack Tecnológico
+
+- **Frontend**: React + TypeScript + Vite
+- **Styling**: CSS moderno con efectos glassmorphism
+- **Estado**: Redux para gestión del estado
+- **PDF**: jsPDF para generación de documentos
+- **Backend**: Node.js + Express + TypeScript
+- **Base de Datos**: PostgreSQL con Sequelize ORM
+
+## 📦 Instalación
+
+```bash
+# Instalar dependencias
+npm install
+
+# Ejecutar en modo desarrollo
+npm run dev
+
+# Construir para producción
+npm run build
+```
+
+## 🎨 Características de Diseño
+
+- Interfaz moderna con efectos glassmorphism
+- Animaciones fluidas y transiciones suaves
+- Diseño completamente responsivo
+- Sistema de colores profesional
+- Tipografía Inter para mejor legibilidad
+
+## 📱 Funcionalidades
+
+1. **Registro de Vehículos**: Captura completa de información del cliente y vehículo
+2. **Selección de Lugares**: Grid interactivo para selección de espacios
+3. **Cálculo Automático**: Precios dinámicos basados en duración
+4. **Historial de Actividades**: Seguimiento completo de transacciones
+5. **Generación de Tickets**: PDFs personalizados para cada transacción
+
+---
+
+Desarrollado con ❤️ por el equipo de **AparClic!**
 
 Currently, two official plugins are available:
 

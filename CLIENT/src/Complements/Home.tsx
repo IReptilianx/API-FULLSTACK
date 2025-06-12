@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Login from './Login';
 
@@ -6,6 +6,34 @@ const Home: React.FC = () => {
     const [modalContent, setModalContent] = useState<null | string>(null);
     const [showLogin, setShowLogin] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    // Reset state when component mounts (when returning to Home)
+    useEffect(() => {
+        setShowLogin(false);
+        setIsLoggedIn(false);
+        setModalContent(null);
+    }, []);    // Manage body scroll when modal is open
+    useEffect(() => {
+        if (modalContent) {
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
+            document.documentElement.style.overflow = 'hidden';
+            document.documentElement.classList.add('modal-open');
+        } else {
+            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-open');
+            document.documentElement.style.overflow = 'auto';
+            document.documentElement.classList.remove('modal-open');
+        }
+        
+        // Cleanup function to restore scroll when component unmounts
+        return () => {
+            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-open');
+            document.documentElement.style.overflow = 'auto';
+            document.documentElement.classList.remove('modal-open');
+        };
+    }, [modalContent]);
 
     const closeModal = () => setModalContent(null);
 
@@ -22,7 +50,7 @@ const Home: React.FC = () => {
         <div className="home-container">
             <nav className="home-nav">
                 <ul>
-                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">AparClic!</a></li>
                     <li>
                         <a href="#" onClick={() => setModalContent("contacto")}>Contacto</a>
                     </li>
@@ -31,74 +59,157 @@ const Home: React.FC = () => {
                     </li>
                     <li>
                         <a href="#" onClick={() => setModalContent("precios")}>Precios</a>
-                    </li>
-                    <li>
-                        <a href="#" onClick={() => setModalContent("acerca")}>Acerca de Nosotros</a>
+                    </li>                    <li>
+                        <a href="#" onClick={() => setModalContent("acerca")}>Acerca de AparClic!</a>
                     </li>
                 </ul>
-            </nav>
-
-            {modalContent && (
+            </nav>            {modalContent && (
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        {modalContent === "contacto" && (
+                        <button className="modal-close" onClick={closeModal}>×</button>
+                          {modalContent === "contacto" && (
                             <>
-                                <h2>📲Contacto</h2>
-                                <p><strong>Encargado:</strong> Oscar Garduño Reyes</p>
-                                <p><strong>Correo:</strong> garduñoreyes@gmail.com</p>
-                                <p><strong>Teléfono:</strong> 7121416913</p>
+                                <div className="modal-header">
+                                    <div className="modal-icon contact-icon">📞</div>
+                                    <h2>Información de Contacto</h2>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="contact-item">
+                                        <span className="label">Encargado</span>
+                                        <span className="value">Oscar Garduño Reyes</span>
+                                    </div>
+                                    <div className="contact-item">
+                                        <span className="label">Correo Electrónico</span>
+                                        <span className="value">garduñoreyes@gmail.com</span>
+                                    </div>
+                                    <div className="contact-item">
+                                        <span className="label">Teléfono</span>
+                                        <span className="value">712 141 6913</span>
+                                    </div>
+                                </div>
+                            </>
+                        )}                        {modalContent === "ubicacion" && (
+                            <>
+                                <div className="modal-header">
+                                    <div className="modal-icon location-icon">📍</div>
+                                    <h2>Nuestra Ubicación</h2>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="location-item">
+                                        <span className="label">Dirección</span>
+                                        <span className="value">Manzana 007, Francisco I Madero</span>
+                                    </div>
+                                    <div className="location-item">
+                                        <span className="label">Municipio</span>
+                                        <span className="value">El Oro de Hidalgo</span>
+                                    </div>
+                                    <div className="location-item">
+                                        <span className="label">Código Postal</span>
+                                        <span className="value">50603</span>
+                                    </div>
+                                </div>
+                            </>
+                        )}                        {modalContent === "precios" && (
+                            <>
+                                <div className="modal-header">
+                                    <div className="modal-icon price-icon">💰</div>
+                                    <h2>Tarifas y Precios</h2>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="price-grid">
+                                        <div className="price-card">
+                                            <h3>Por Hora</h3>
+                                            <div className="price">$35.00 <span>MXN</span></div>
+                                            <p>Ideal para estancias cortas</p>
+                                        </div>
+                                        <div className="price-card">
+                                            <h3>Tarifa Diaria</h3>
+                                            <div className="price">$280.00 <span>MXN</span></div>
+                                            <p>Hasta 24 horas completas</p>
+                                        </div>
+                                        <div className="price-card featured">
+                                            <h3>Mensualidad</h3>
+                                            <div className="price">$900.00 <span>MXN</span></div>
+                                            <p>La mejor opción para usuarios frecuentes</p>
+                                            <div className="badge">Más Popular</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )}                        {modalContent === "acerca" && (
+                            <>                                <div className="modal-header">
+                                    <div className="modal-icon about-icon">🏢</div>
+                                    <h2>Acerca de AparClic!</h2>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="about-section">
+                                        <h3>Nuestra Misión</h3>
+                                        <p>AparClic! es una empresa líder en automatización de estacionamientos, comprometida con la innovación y la excelencia en el servicio al cliente.</p>
+                                    </div>
+                                    <div className="about-section">
+                                        <h3>Nuestra Visión</h3>
+                                        <p>Proporcionar soluciones tecnológicas avanzadas que optimicen la gestión de estacionamientos con AparClic!, mejorando la experiencia del usuario y la eficiencia operativa.</p>
+                                    </div>
+                                    <div className="about-features">
+                                        <div className="feature-item">
+                                            <span className="feature-icon">⚡</span>
+                                            <span>Tecnología de Vanguardia</span>
+                                        </div>
+                                        <div className="feature-item">
+                                            <span className="feature-icon">🛡️</span>
+                                            <span>Seguridad Garantizada</span>
+                                        </div>
+                                        <div className="feature-item">
+                                            <span className="feature-icon">📱</span>
+                                            <span>Interfaz Intuitiva</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </>
                         )}
-                        {modalContent === "ubicacion" && (
-                            <>
-                                <h2>📍Ubicación</h2>
-                                <p>Avenida de los Estacionamientos #123</p>
-                                <p>Colonia Centro, Ciudad Ficticia</p>
-                                <p>C.P. 12345</p>
-                            </>
-                        )}
-                        {modalContent === "precios" && (
-                            <>
-                                <h2>💲Precios</h2>
-                                <p><strong>Hora:</strong> $35.00 MXN</p>
-                                <p><strong>Tarifa diaria:</strong> $80.00 MXN</p>
-                                <p><strong>Mensualidad:</strong> $900.00 MXN</p>
-                            </>
-                        )}
-                        {modalContent === "acerca" && (
-                            <>
-                                <h2>ℹ️Acerca de Nosotros</h2>
-                                <p>Somos una empresa dedicada a la automatización de estacionamientos.</p>
-                                <p>Buscamos optimizar la experiencia del usuario con soluciones eficientes, seguras y tecnológicas.</p>
-                            </>
-                        )}
-                        <button onClick={closeModal}>✖️ Cerrar</button>
                     </div>
                 </div>
             )}
 
-            <header className="home-header">
-                <h1>Sistema de Automatización para Estacionamientos</h1>
-                <p>Bienvenido al sistema de automatización para estacionamientos. Aquí podrás gestionar tus actividades de manera eficiente y en tiempo real.</p>
-            </header>
+            <main className="home-main">                <header className="home-header">
+                    <h1>
+                        <span>AparClic!</span><br />
+                        Sistema de Estacionamiento Inteligente
+                    </h1>
+                    <p>
+                        Revoluciona la gestión de tu estacionamiento con AparClic!. 
+                        Control total, eficiencia máxima y experiencia de usuario excepcional.
+                    </p>
+                </header>
 
-            <main className="home-main">
                 <div className="features">
                     <div className="feature-card">
-                        <span style={{ fontSize: '50px' }}>🧑‍💼</span>
-                        <p>Crea y administra perfiles de clientes para mayor control y seguridad.</p>
+                        <span className="icon">👥</span>
+                        <p>
+                            <strong>Gestión de Clientes</strong><br />
+                            Sistema avanzado de perfiles y seguimiento de clientes para un control completo y personalizado.
+                        </p>
                     </div>
                     <div className="feature-card">
-                        <span style={{ fontSize: '50px' }}>🎟️</span>
-                        <p>Emite tickets digitales para un control preciso de entradas y salidas.</p>
+                        <span className="icon">🎫</span>
+                        <p>
+                            <strong>Tickets Digitales</strong><br />
+                            Generación automática de tickets con códigos únicos y seguimiento en tiempo real.
+                        </p>
                     </div>
                     <div className="feature-card">
-                        <span style={{ fontSize: '50px' }}>📡</span>
-                        <p>Supervisa el estado del estacionamiento en tiempo real para una gestión eficiente.</p>
+                        <span className="icon">📊</span>
+                        <p>
+                            <strong>Monitoreo en Tiempo Real</strong><br />
+                            Dashboard inteligente con estadísticas, ocupación y análisis de ingresos instantáneos.
+                        </p>
                     </div>
                 </div>
+
                 <div className="actions">
-                    <button className="action-button" onClick={() => setShowLogin(true)}>¡Comenzar!</button>
+                    <button className="action-button" onClick={() => setShowLogin(true)}>
+                        ¡Comenzar Ahora!
+                    </button>
                 </div>
             </main>
         </div>

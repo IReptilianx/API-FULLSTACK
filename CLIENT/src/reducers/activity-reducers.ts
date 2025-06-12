@@ -10,6 +10,10 @@ export type Activity = {
   price?: number; // Precio fijo para otros servicios
   hours?: number; // Agregado para tiempo de estacionamiento
   spot?: number; // Agregado para lugar de estacionamiento
+  auto?: string; // Tipo de vehículo
+  color?: string; // Color del vehículo
+  apellido?: string; // Apellido del cliente
+  telefono?: string; // Teléfono del cliente
 };
 
 export type ActivityActions =

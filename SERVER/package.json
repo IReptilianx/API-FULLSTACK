@@ -1,7 +1,7 @@
 {
-  "name": "rest_api_3004",
+  "name": "aparclic-server",
   "version": "1.0.0",
-  "description": "api rest nod type",
+  "description": "AparClic! - API REST para sistema de estacionamiento inteligente",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",

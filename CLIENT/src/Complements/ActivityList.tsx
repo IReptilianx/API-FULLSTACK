@@ -13,12 +13,11 @@ function ActivityList({ activities }: ActivityListProps) {
   useEffect(() => {
     setActivityList(activities);
   }, [activities]);
-
   const generateTicket = (activity: Activity) => {
     const doc = new jsPDF();
 
     doc.setFontSize(16);
-    doc.text("Ticket de Estacionamiento", 10, 10);
+    doc.text("AparClic! - Ticket de Estacionamiento", 10, 10);
 
     doc.setFontSize(12);
     doc.text(`Nombre: ${activity.name}`, 10, 20);

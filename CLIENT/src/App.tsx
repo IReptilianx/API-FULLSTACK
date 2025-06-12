@@ -17,8 +17,11 @@ function App() {
   };
 
   const handleLogout = () => {
+    console.log("handleLogout ejecutado");
+    console.log("Estado antes:", { isAuthenticated, showHome });
     setIsAuthenticated(false);
     setShowHome(true);
+    console.log("Estado después: isAuthenticated=false, showHome=true");
   };
 
   return (

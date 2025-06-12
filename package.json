@@ -1,6 +1,7 @@
 {
-  "name": "fullstack-integrador",
+  "name": "aparclic-fullstack-system",
   "version": "1.0.0",
+  "description": "AparClic! - Sistema completo de gestión de estacionamiento inteligente",
   "main": "index.js",
   "dependencies": {
     "@types/react": "^19.1.8",
@@ -142,8 +143,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run dev --prefix CLIENT\" \"npm run dev --prefix SERVER\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "keywords": ["estacionamiento", "parking", "aparclic", "management", "fullstack"],
+  "author": "Ramon - AparClic! Team",
+  "license": "ISC"
 }
