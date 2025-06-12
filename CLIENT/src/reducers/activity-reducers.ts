@@ -4,10 +4,12 @@ export type Activity = {
   name: string;
   calorias: number;
   service: string; // Tipo de servicio
+  plates: string; // Placas del vehículo
   client: string;
-  plates?: string; // Opcional para servicios distintos de estacionamiento
   startTime?: number; // Tiempo de inicio para estacionamiento
   price?: number; // Precio fijo para otros servicios
+  hours?: number; // Agregado para tiempo de estacionamiento
+  spot?: number; // Agregado para lugar de estacionamiento
 };
 
 export type ActivityActions =

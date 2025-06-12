@@ -1,78 +1,104 @@
 import { useEffect, useState } from "react";
-
-interface Activity {
-  id: string;
-  service: string;
-  client: string;
-  plates?: string;
-  startTime?: number;
-  price?: number;
-}
+import { Activity } from "../reducers/activity-reducers";
+import jsPDF from "jspdf";
 
 interface ActivityListProps {
   activities: Activity[];
 }
 
 function ActivityList({ activities }: ActivityListProps) {
-  const [currentTime, setCurrentTime] = useState(Date.now());
+  const [activityList, setActivityList] = useState(activities);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(Date.now());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    setActivityList(activities);
+  }, [activities]);
 
-  const calculateCost = (startTime: number | undefined) => {
-    if (!startTime) return 0;
-    const elapsedSeconds = (currentTime - startTime) / 1000;
-    const ratePerHour = 20; // Tarifa por hora
-    return Math.ceil((elapsedSeconds / 3600) * ratePerHour);
+  const generateTicket = (activity: Activity) => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Ticket de Estacionamiento", 10, 10);
+
+    doc.setFontSize(12);
+    doc.text(`Nombre: ${activity.name}`, 10, 20);
+    doc.text(`Servicio: ${activity.service}`, 10, 30);
+    doc.text(`Placas: ${activity.plates}`, 10, 40);
+    doc.text(`Tiempo: ${activity.hours} horas`, 10, 50);
+    doc.text(`Precio: ${activity.price} MXN`, 10, 60);
+    doc.text(`Lugar de estacionamiento: #${activity.spot}`, 10, 70);
+
+    doc.save(`ticket_${activity.id}.pdf`);
   };
 
-  const formatTime = (startTime: number | undefined) => {
-    if (!startTime) return "00:00:00";
-    const elapsedSeconds = Math.floor((currentTime - startTime) / 1000);
-    const hours = Math.floor(elapsedSeconds / 3600);
-    const minutes = Math.floor((elapsedSeconds % 3600) / 60);
-    const seconds = elapsedSeconds % 60;
-    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  const deleteActivity = (id: string) => {
+    setActivityList(activityList.filter((activity) => activity.id !== id));
+    setAlertMessage("El registro ha sido eliminado correctamente.");
+    setTimeout(() => setAlertMessage(null), 3000);
   };
 
   return (
     <div className="activity-list">
       <h2>Historial de Actividades</h2>
-      {activities.length === 0 ? (
+      {alertMessage && (
+        <div
+          style={{
+            backgroundColor: "#f44336",
+            color: "white",
+            padding: "10px",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            textAlign: "center",
+            fontSize: "16px",
+          }}
+        >
+          {alertMessage}
+        </div>
+      )}
+      {activityList.length === 0 ? (
         <p>No hay actividades registradas.</p>
       ) : (
         <ul>
-          {activities.map((activity) => (
+          {activityList.map((activity) => (
             <li key={activity.id}>
-              <div>
-                <p>
-                  <b>Servicio:</b> {activity.service}
-                </p>
-                <p>
-                  <b>Cliente:</b> {activity.client}
-                </p>
-                {activity.service === "Estacionamiento" && (
-                  <>
-                    <p>
-                      <b>Placas:</b> {activity.plates}
-                    </p>
-                    <p>
-                      <b>Tiempo:</b> {formatTime(activity.startTime)}
-                    </p>
-                    <p>
-                      <b>Costo:</b> ${calculateCost(activity.startTime)}
-                    </p>
-                  </>
-                )}
-                {activity.service !== "Estacionamiento" && (
-                  <p>
-                    <b>Precio:</b> ${activity.price}
-                  </p>
-                )}
+              <div className="activity-item" key={activity.id}>
+                <h3>{activity.name}</h3>
+                <p>Servicio: {activity.service}</p>
+                <p>Placas: {activity.plates}</p>
+                <p>Tiempo: {activity.hours} horas</p>
+                <p>Precio: ${activity.price} MXN</p>
+                <p>Lugar de estacionamiento: #{activity.spot}</p>
+                <button
+                  className="generate-ticket-btn"
+                  style={{
+                    backgroundColor: "#4CAF50",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                  }}
+                  onClick={() => generateTicket(activity)}
+                >
+                  Generar Ticket
+                </button>
+                <button
+                  className="delete-activity-btn"
+                  style={{
+                    backgroundColor: "#f44336",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    marginLeft: "10px",
+                  }}
+                  onClick={() => deleteActivity(activity.id)}
+                >
+                  Eliminar
+                </button>
               </div>
             </li>
           ))}

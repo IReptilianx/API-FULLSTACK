@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../index.css';
-
 
 const API_BASE_URL = window.location.hostname === 'localhost' 
   ? "http://localhost:8080" 
   : "https://api-fullstack-ryb6.onrender.com";
 
-const Login = ({ onLogin }: { onLogin: () => void }) => {
+const Login = ({ onLogin }: { onLogin: (email: string, password: string) => void }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
@@ -25,6 +25,8 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
     observaciones: ''
   });
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -40,7 +42,8 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
       const data = await response.json();
 
       if (data.success) {
-        onLogin(); // Update authentication state
+        onLogin(email, password);
+        navigate('/form'); // Redirige al formulario después de iniciar sesión
       } else {
         setError(data.message || 'Correo o contraseña incorrectos');
       }
@@ -74,7 +77,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
     await response.json();
     alert('Cuenta creada exitosamente');
       setIsCreatingAccount(false);
-      onLogin();
+      onLogin(registerData.email, registerData.password); // Ajustando la llamada
     } catch (error) {
       console.error('Error de conexión:', error);
       alert('Error de conexión. Intenta nuevamente.');
