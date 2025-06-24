@@ -1,0 +1,175 @@
+import { useEffect, useState } from "react";
+import { Activity } from "../reducers/activity-reducers";
+import jsPDF from "jspdf";
+import { useActivityStore } from "../store";
+
+interface ActivityListProps {
+  activities: Activity[];
+}
+
+function ActivityList({ activities }: ActivityListProps) {
+  const [activityList, setActivityList] = useState(activities);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [alertType, setAlertType] = useState<'success' | 'error'>('success');
+  const { finishService } = useActivityStore();
+
+  useEffect(() => {
+    setActivityList(activities);
+  }, [activities]);
+
+  const generateTicket = (activity: Activity) => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("AparClic! - Ticket de Estacionamiento", 10, 10);
+
+    doc.setFontSize(12);
+    doc.text(`Nombre: ${activity.name}`, 10, 20);
+    doc.text(`Servicio: ${activity.service}`, 10, 30);
+    doc.text(`Placas: ${activity.plates}`, 10, 40);
+    doc.text(`Tiempo: ${activity.hours} horas`, 10, 50);
+    doc.text(`Precio: ${activity.price} MXN`, 10, 60);
+    doc.text(`Lugar de estacionamiento: #${activity.spot}`, 10, 70);
+    doc.text(`Estado: ${activity.status === 'activo' ? 'En curso' : 'Finalizado'}`, 10, 80);
+
+    doc.save(`ticket_${activity.id}.pdf`);
+  };
+
+  const handleDeleteActivity = (activity: Activity) => {
+    // Solo permitir eliminar si el servicio ya está finalizado
+    if (activity.status === 'activo') {
+      setAlertType('error');
+      setAlertMessage("No puedes eliminar un servicio activo. Primero debes finalizarlo.");
+      setTimeout(() => setAlertMessage(null), 3000);
+      return;
+    }
+    
+    setActivityList(activityList.filter((a) => a.id !== activity.id));
+    setAlertType('success');
+    setAlertMessage("El registro ha sido eliminado correctamente.");
+    setTimeout(() => setAlertMessage(null), 3000);
+  };
+
+  const handleFinishService = (activity: Activity) => {
+    if (activity.status === 'finalizado') {
+      setAlertType('error');
+      setAlertMessage("Este servicio ya ha sido finalizado.");
+      setTimeout(() => setAlertMessage(null), 3000);
+      return;
+    }
+    
+    finishService(activity.id, activity.clientId);
+    setAlertType('success');
+    setAlertMessage("Servicio finalizado correctamente. El cajón de estacionamiento ha sido liberado.");
+    setTimeout(() => setAlertMessage(null), 3000);
+  };
+
+  return (
+    <div className="activity-list">
+      <h2>Historial de Actividades</h2>
+      {alertMessage && (
+        <div
+          style={{
+            backgroundColor: alertType === 'success' ? "#4CAF50" : "#f44336",
+            color: "white",
+            padding: "10px",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            textAlign: "center",
+            fontSize: "16px",
+          }}
+        >
+          {alertMessage}
+        </div>
+      )}
+      {activityList.length === 0 ? (
+        <p>No hay actividades registradas.</p>
+      ) : (
+        <ul>
+          {activityList.map((activity) => (
+            <li key={activity.id}>
+              <div 
+                className="activity-item" 
+                key={activity.id}
+                style={{
+                  border: `2px solid ${activity.status === 'activo' ? '#4CAF50' : '#999'}`,
+                  opacity: activity.status === 'activo' ? 1 : 0.7,
+                }}
+              >
+                <h3>{activity.name}</h3>
+                <p>Servicio: {activity.service}</p>
+                <p>Placas: {activity.plates}</p>
+                <p>Tiempo: {activity.hours} horas</p>
+                <p>Precio: ${activity.price} MXN</p>
+                <p>Lugar de estacionamiento: #{activity.spot}</p>
+                <p>Estado: <span style={{ 
+                  fontWeight: 'bold', 
+                  color: activity.status === 'activo' ? '#4CAF50' : '#999' 
+                }}>
+                  {activity.status === 'activo' ? 'Activo' : 'Finalizado'}
+                </span></p>
+                
+                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                  <button
+                    className="generate-ticket-btn"
+                    style={{
+                      backgroundColor: "#4CAF50",
+                      color: "white",
+                      padding: "10px 20px",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                    }}
+                    onClick={() => generateTicket(activity)}
+                  >
+                    Generar Ticket
+                  </button>
+                  
+                  {activity.status === 'activo' && (
+                    <button
+                      className="finish-service-btn"
+                      style={{
+                        backgroundColor: "#2196F3",
+                        color: "white",
+                        padding: "10px 20px",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        fontSize: "16px",
+                      }}
+                      onClick={() => handleFinishService(activity)}
+                    >
+                      Finalizar Servicio
+                    </button>
+                  )}
+                  
+                  <button
+                    className="delete-activity-btn"
+                    style={{
+                      backgroundColor: "#f44336",
+                      color: "white",
+                      padding: "10px 20px",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      opacity: activity.status === 'activo' ? 0.5 : 1,
+                    }}
+                    onClick={() => handleDeleteActivity(activity)}
+                    disabled={activity.status === 'activo'}
+                    title={activity.status === 'activo' ? "Debe finalizar el servicio primero" : ""}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export default ActivityList;

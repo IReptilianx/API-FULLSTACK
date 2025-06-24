@@ -1,0 +1,93 @@
+/* Modal de finalización */
+.finish-modal {
+  max-width: 600px;
+}
+
+.finish-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  background: #f9fafb;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+}
+
+.finish-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0.75rem 0;
+  width: 100%;
+}
+
+.finish-time, .finish-real-time, .finish-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+}
+
+.finish-price {
+  font-size: 1.25rem;
+  color: #059669;
+  font-weight: bold;
+}
+
+.finish-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.finish-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Estilos para el modo demostrativo */
+.demo-mode-banner {
+  background: #fef2f2;
+  border: 2px dashed #ef4444;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: bold;
+  color: #b91c1c;
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+.demo-explanation {
+  font-size: 0.8rem;
+  font-weight: normal;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.finish-real-time {
+  color: #075985;
+  font-style: italic;
+}
+
+.finish-time {
+  color: #047857;
+  font-weight: bold;
+}
