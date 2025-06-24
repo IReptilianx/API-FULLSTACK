@@ -3,7 +3,7 @@ import sequelize from "../config/db";
 
 // Definir la interfaz para los atributos del Usuario
 interface UsuarioAttributes {
-  id?: number;
+  id_usuario?: number;
   nombreCompleto: string;
   apellido: string;
   direccion?: string;
@@ -22,7 +22,7 @@ class Usuario extends Model<UsuarioAttributes> {
 
 Usuario.init(
   {
-    id: {
+    id_usuario: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,

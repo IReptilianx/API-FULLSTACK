@@ -38,7 +38,7 @@ export const registerUser = async (req: Request, res: Response) => {
     res.status(201).json({ 
       message: "Usuario registrado exitosamente", 
       user: {
-        id: newUser.get("id"),
+        id: newUser.get("id_usuario"),
         email: newUser.get("email"),
         nombreCompleto: newUser.get("nombreCompleto"),
       }
@@ -57,7 +57,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
     // Verificar credenciales de usuario registrado
     const user = await Usuario.findOne({ where: { email, password } }); // Comparar directamente email y password
-    console.log("User found:", user ? { id: user.get("id"), email: user.get("email"), password: user.get("password") } : "No user found");
+    console.log("User found:", user ? { id: user.get("id_usuario"), email: user.get("email"), password: user.get("password") } : "No user found");
 
     if (!user) {
       console.log("Authentication failed - user not found or password mismatch");
@@ -70,7 +70,7 @@ export const loginUser = async (req: Request, res: Response) => {
     res.json({ 
       success: true, 
       user: {
-        id: user.get("id"),
+        id: user.get("id_usuario"),
         email: user.get("email"),
         nombreCompleto: user.get("nombreCompleto"),
         role: "client"
@@ -86,7 +86,7 @@ export const loginUser = async (req: Request, res: Response) => {
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await Usuario.findAll({
-      attributes: ['id', 'nombreCompleto', 'apellido', 'email', 'password', 'telefono', 'createdAt']
+      attributes: ['id_usuario', 'nombreCompleto', 'apellido', 'email', 'password', 'telefono', 'createdAt']
     });
     res.json({ data: users });
   } catch (error) {

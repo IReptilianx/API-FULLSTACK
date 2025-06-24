@@ -74,6 +74,7 @@ router.post(
   body('placas').notEmpty().withMessage("Las placas son obligatorias"),
   body('auto').notEmpty().withMessage("El auto es obligatorio"),
   body('color').notEmpty().withMessage("El color es obligatorio"),
+  body('spot').notEmpty().withMessage("El lugar de estacionamiento es obligatorio"),
   handleInputErrors,  saveClient
 );
 

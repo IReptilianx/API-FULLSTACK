@@ -11,8 +11,8 @@ type FormProps = {
 };
 
 const API_BASE_URL = window.location.hostname === 'localhost' 
-  ? "http://localhost:8080" 
-  : "https://api-fullstack-ryb6.onrender.com";
+  ? "http://localhost:8080/api" 
+  : "https://api-fullstack-ryb6.onrender.com/api";
 
 function Form({ dispatch, state }: FormProps) {
   const navigate = useNavigate();
@@ -162,7 +162,7 @@ function Form({ dispatch, state }: FormProps) {
     };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/clients/save`, {
+      const response = await fetch(`${API_BASE_URL}/clients/save`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -274,7 +274,11 @@ function Form({ dispatch, state }: FormProps) {
           <button 
             type="button" 
             className="btn btn-secondary"
-            onClick={() => navigate('/')}
+            onClick={() => {
+              localStorage.removeItem('isAuthenticated');
+              localStorage.removeItem('userRole');
+              navigate('/');
+            }}
           >
             🏠 Inicio
           </button>

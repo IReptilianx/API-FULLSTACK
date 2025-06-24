@@ -97,7 +97,7 @@ const Login = ({ onLogin }: { onLogin: (email: string, password: string, role: s
       const requestData = { email, password };
       console.log('Datos de solicitud:', requestData);
       
-      const response = await fetch(`${API_BASE_URL}/api/user/login`, {
+      const response = await fetch(`${API_BASE_URL}/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
